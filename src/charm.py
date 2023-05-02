@@ -18,10 +18,6 @@ logger = logging.getLogger(__name__)
 class HTTPReqAcmeOperatorCharm(AcmeClient):
     """Main class that is instantiated every time an event occurs."""
 
-    REQUIRED_CONFIG = [
-        "HTTPREQ_ENDPOINT",
-    ]
-
     def __init__(self, *args):
         """Uses the acme_client library to manage events."""
         super().__init__(*args, plugin="httpreq")
