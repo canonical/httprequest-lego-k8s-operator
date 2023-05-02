@@ -72,7 +72,11 @@ jobs:
 
   publish-charm:
     name: Publish Charm
-    needs: integration-test
+    needs:
+      - lint-report
+      - static-analysis
+      - unit-tests-with-coverage
+      - integration-test
     runs-on: ubuntu-22.04
     if: ${{ github.ref_name == 'main' }}
     steps:
