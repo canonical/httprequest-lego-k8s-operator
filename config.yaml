@@ -1,0 +1,29 @@
+options:
+  email:
+    type: string
+    description: Account email address
+  server:
+    type: string
+    description: Certificate authority server
+    default: "https://acme-v02.api.letsencrypt.org/directory"
+  httpreq_endpoint:
+    type: string
+    description: URL of the HTTP endpoint to use
+  httpreq_http_timeout:
+    type: int
+    description: API request timeout
+  httpreq_mode:
+    type: string
+    description: "'RAW' or None"
+  httpreq_password:
+    type: string
+    description: Basic authentication password
+  httpreq_polling_interval:
+    type: int
+    description: Time between DNS propagation check
+  httpreq_propagation_timeout:
+    type: int
+    description: Maximum waiting time for DNS propagation
+  httpreq_username:
+    type: string
+    description: Basic authentication username
