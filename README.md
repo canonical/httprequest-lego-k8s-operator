@@ -11,6 +11,11 @@ using the HTTP Request plugin for DNS-01 challenge.
 This charm is a provider of the [`tls-certificates-interface`](https://github.com/canonical/tls-certificates-interface),
 charms that require Let's Encrypt certificates need to implement the requirer side.
 
+This operator targets a custom implementation of an API defined in
+[`go-acme lego documentation`](https://go-acme.github.io/lego/dns/httpreq/).
+This custom API needs be implemented for you particular use case and its URL
+provided to as a configuration to this operator.
+
 ## Usage
 
 Create a YAML configuration file with the following fields:
