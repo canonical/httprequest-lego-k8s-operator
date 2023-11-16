@@ -2,6 +2,10 @@ name: CI
 
 on:
   push:
+    branches: ["main"]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: ["main"]
 
 jobs:
   lint-report:
@@ -43,7 +47,7 @@ jobs:
       - name: Setup LXD
         uses: canonical/setup-lxd@main
         with:
-          channel: 5.17/stable
+          channel: 5.0/stable
       - name: Setup operator environment
         uses: charmed-kubernetes/actions-operator@main
         with:
@@ -52,10 +56,10 @@ jobs:
         run: tox -e integration
       - name: Archive Tested Charm
         uses: actions/upload-artifact@v3
-        if: ${{ github.ref_name == 'main' }}
+        if: ${{ github.event_name == 'push' }}
         with:
           name: tested-charm
-          path: .tox/**/httpreq-acme-operator_ubuntu-22.04-amd64.charm
+          path: .tox/**/namecheap-acme-operator_ubuntu-22.04-amd64.charm
           retention-days: 5
       - name: Archive charmcraft logs
         if: failure()
@@ -72,13 +76,9 @@ jobs:
 
   publish-charm:
     name: Publish Charm
-    needs:
-      - lint-report
-      - static-analysis
-      - unit-tests-with-coverage
-      - integration-test
+    needs: integration-test
     runs-on: ubuntu-22.04
-    if: ${{ github.ref_name == 'main' }}
+    if: ${{ github.event_name == 'push' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -89,11 +89,13 @@ jobs:
         with:
           name: tested-charm
       - name: Move charm in current directory
-        run: find ./ -name httpreq-acme-operator_ubuntu-22.04-amd64.charm -exec mv -t ./ {} \;
+        run: find ./ -name namecheap-acme-operator_ubuntu-22.04-amd64.charm -exec mv -t ./ {} \;
       - name: Select Charmhub channel
         uses: canonical/charming-actions/channel@2.4.0
         id: channel
       - name: Upload charm to Charmhub
-        env:
-          CHARMCRAFT_AUTH: "${{ secrets.CHARMHUB_TOKEN }}"
-        run: charmcraft upload ./httpreq-acme-operator_ubuntu-22.04-amd64.charm --release ${{ steps.channel.outputs.name }}
+        uses: canonical/charming-actions/upload-charm@2.4.0
+        with:
+          credentials: "${{ secrets.CHARMHUB_TOKEN }}"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          channel: "${{ steps.channel.outputs.name }}"
