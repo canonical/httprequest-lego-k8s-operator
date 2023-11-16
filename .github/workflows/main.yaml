@@ -47,7 +47,7 @@ jobs:
       - name: Setup LXD
         uses: canonical/setup-lxd@main
         with:
-          channel: 5.0/stable
+          channel: 5.17/stable
       - name: Setup operator environment
         uses: charmed-kubernetes/actions-operator@main
         with:
@@ -59,7 +59,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         with:
           name: tested-charm
-          path: .tox/**/namecheap-acme-operator_ubuntu-22.04-amd64.charm
+          path: .tox/**/httpreq-acme-operator_ubuntu-22.04-amd64.charm
           retention-days: 5
       - name: Archive charmcraft logs
         if: failure()
@@ -89,7 +89,7 @@ jobs:
         with:
           name: tested-charm
       - name: Move charm in current directory
-        run: find ./ -name namecheap-acme-operator_ubuntu-22.04-amd64.charm -exec mv -t ./ {} \;
+        run: find ./ -name httpreq-acme-operator_ubuntu-22.04-amd64.charm -exec mv -t ./ {} \;
       - name: Select Charmhub channel
         uses: canonical/charming-actions/channel@2.4.0
         id: channel
