@@ -1,6 +1,5 @@
-# httpreq-acme-operator
-
-## Description
+# httpreq ACME Operator (K8s)
+[![CharmHub Badge](https://charmhub.io/httpreq-acme-operator/badge.svg)](https://charmhub.io/httpreq-acme-operator)
 
 ACME operator implementing the provider side of the `tls-certificates`
 interface to get signed certificates from the `Let's Encrypt` ACME server
