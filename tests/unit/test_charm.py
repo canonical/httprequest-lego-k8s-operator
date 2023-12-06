@@ -9,12 +9,12 @@ from ops.model import ActiveStatus, BlockedStatus
 from ops.testing import Harness
 from parameterized import parameterized  # type: ignore[import]
 
-from charm import HTTPReqAcmeOperatorCharm
+from charm import HTTPRequestLegoK8s
 
 
 class TestCharm(unittest.TestCase):
     def setUp(self):
-        self.harness = Harness(HTTPReqAcmeOperatorCharm)
+        self.harness = Harness(HTTPRequestLegoK8s)
         self.addCleanup(self.harness.cleanup)
         self.harness.begin()
 

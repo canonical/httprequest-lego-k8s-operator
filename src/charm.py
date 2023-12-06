@@ -8,18 +8,18 @@ import logging
 from typing import Dict
 from urllib.parse import urlparse
 
-from charms.acme_client_operator.v0.acme_client import AcmeClient  # type: ignore[import]
+from charms.lego_base_k8s.v0.lego_client import AcmeClient  # type: ignore[import]
 from ops.main import main
 from ops.model import ActiveStatus, BlockedStatus
 
 logger = logging.getLogger(__name__)
 
 
-class HTTPReqAcmeOperatorCharm(AcmeClient):
+class HTTPRequestLegoK8s(AcmeClient):
     """Main class that is instantiated every time an event occurs."""
 
     def __init__(self, *args):
-        """Uses the acme_client library to manage events."""
+        """Uses the lego_client library to manage events."""
         super().__init__(*args, plugin="httpreq")
         self.framework.observe(self.on.config_changed, self._on_config_changed)
 
@@ -109,4 +109,4 @@ class HTTPReqAcmeOperatorCharm(AcmeClient):
 
 
 if __name__ == "__main__":  # pragma: nocover
-    main(HTTPReqAcmeOperatorCharm)
+    main(HTTPRequestLegoK8s)
