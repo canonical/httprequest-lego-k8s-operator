@@ -1,7 +1,7 @@
-# httpreq ACME Operator (K8s)
-[![CharmHub Badge](https://charmhub.io/httpreq-acme-operator/badge.svg)](https://charmhub.io/httpreq-acme-operator)
+# httpreq LEGO Operator (K8s)
+[![CharmHub Badge](https://charmhub.io/httprequest-lego-k8s/badge.svg)](https://charmhub.io/httprequest-lego-k8s)
 
-ACME operator implementing the provider side of the `tls-certificates`
+LEGO operator implementing the provider side of the `tls-certificates`
 interface to get signed certificates from the `Let's Encrypt` ACME server
 using the HTTP Request plugin for DNS-01 challenge.
 
@@ -20,21 +20,21 @@ provided to as a configuration to this operator.
 Create a YAML configuration file with the following fields:
 
 ```yaml
-httpreq-acme-operator:
+httprequest-lego-k8s:
   email: <Account email address>
   httpreq_endpoint: <HTTP/HTTPS URL>
 ```
 
-Deploy `httpreq-acme-operator`:
+Deploy `httprequest-lego-k8s`:
 
 ```bash
-juju deploy httpreq-acme-operator --config <yaml config file>
+juju deploy httprequest-lego-k8s --config <yaml config file>
 ```
 
 Relate it to a `tls-certificates-requirer` charm:
 
 ```bash
-juju relate httpreq-acme-operator:certificates <tls-certificates-requirer>
+juju relate httprequest-lego-k8s:certificates <tls-certificates-requirer>
 ````
 
 ## Config
