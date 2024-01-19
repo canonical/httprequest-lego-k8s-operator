@@ -41,6 +41,10 @@ jobs:
   integration-test:
     name: Integration tests
     runs-on: ubuntu-22.04
+    needs:
+      - lint-report
+      - static-analysis
+      - unit-tests-with-coverage
     steps:
       - name: Checkout
         uses: actions/checkout@v4
