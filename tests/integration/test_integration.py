@@ -55,6 +55,10 @@ async def test_given_charm_is_built_when_deployed_then_status_is_active(
     )
 
 
+@pytest.mark.xfail(
+    reason="The charm will fail requesting a certificate from the ACME server, \
+        because http_req is invalid and will be blocked."
+)
 async def test_given_tls_requirer_is_deployed_and_related_then_status_is_active(
     ops_test: OpsTest,
     build_and_deploy,
@@ -64,7 +68,7 @@ async def test_given_tls_requirer_is_deployed_and_related_then_status_is_active(
         relation1=f"{APP_NAME}:certificates", relation2=f"{TLS_REQUIRER_CHARM_NAME}"
     )
     await ops_test.model.wait_for_idle(
-        apps=[TLS_REQUIRER_CHARM_NAME],
+        apps=[APP_NAME],
         status="active",
         timeout=1000,
     )
