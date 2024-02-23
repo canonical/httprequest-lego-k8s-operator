@@ -1,14 +1,14 @@
 options:
   email:
     type: string
-    description: Account email address
+    description: Account email address, this email will receive notifications from Let's Encrypt.
   server:
     type: string
     description: Certificate authority server
     default: "https://acme-v02.api.letsencrypt.org/directory"
   httpreq_endpoint:
     type: string
-    description: URL of the HTTP endpoint to use
+    description: URL of the custom API that can be used to fulfill the DNS-01 challenge
   httpreq_http_timeout:
     type: int
     description: API request timeout
