@@ -73,11 +73,11 @@ class TestCharm(unittest.TestCase):
             {
                 "email": "example@email.com",
                 "httpreq_endpoint": "http://dummy.url.com",
-                "httpreq_http_timeout": "5",
+                "httpreq_http_timeout": 5,
                 "httpreq_mode": "RAW",
                 "httpreq_password": "qwerty123",
-                "httpreq_polling_interval": "30",
-                "httpreq_propagation_timeout": "10",
+                "httpreq_polling_interval": 30,
+                "httpreq_propagation_timeout": 10,
                 "httpreq_username": "bob",
             }
         )
@@ -88,11 +88,11 @@ class TestCharm(unittest.TestCase):
             {
                 "email": "example@email.com",
                 "httpreq_endpoint": "http://dummy.url.com",
-                "httpreq_http_timeout": "5",
+                "httpreq_http_timeout": 5,
                 "httpreq_mode": "RAW",
                 "httpreq_password": "qwerty123",
-                "httpreq_polling_interval": "30",
-                "httpreq_propagation_timeout": "10",
+                "httpreq_polling_interval": 30,
+                "httpreq_propagation_timeout": 10,
                 "httpreq_username": "bob",
             }
         )
