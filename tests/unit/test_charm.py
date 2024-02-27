@@ -73,11 +73,11 @@ class TestCharm(unittest.TestCase):
             {
                 "email": "example@email.com",
                 "httpreq_endpoint": "http://dummy.url.com",
-                "httpreq_http_timeout": 5,
+                "httpreq_http_timeout": "5",
                 "httpreq_mode": "RAW",
                 "httpreq_password": "qwerty123",
-                "httpreq_polling_interval": 30,
-                "httpreq_propagation_timeout": 10,
+                "httpreq_polling_interval": "30",
+                "httpreq_propagation_timeout": "10",
                 "httpreq_username": "bob",
             }
         )
@@ -88,11 +88,11 @@ class TestCharm(unittest.TestCase):
             {
                 "email": "example@email.com",
                 "httpreq_endpoint": "http://dummy.url.com",
-                "httpreq_http_timeout": 5,
+                "httpreq_http_timeout": "5",
                 "httpreq_mode": "RAW",
                 "httpreq_password": "qwerty123",
-                "httpreq_polling_interval": 30,
-                "httpreq_propagation_timeout": 10,
+                "httpreq_polling_interval": "30",
+                "httpreq_propagation_timeout": "10",
                 "httpreq_username": "bob",
             }
         )
@@ -100,11 +100,11 @@ class TestCharm(unittest.TestCase):
             self.harness.charm._plugin_config,
             {
                 "HTTPREQ_ENDPOINT": "http://dummy.url.com",
-                "HTTPREQ_HTTP_TIMEOUT": 5,
+                "HTTPREQ_HTTP_TIMEOUT": "5",
                 "HTTPREQ_MODE": "RAW",
                 "HTTPREQ_PASSWORD": "qwerty123",
-                "HTTPREQ_POLLING_INTERVAL": 30,
-                "HTTPREQ_PROPAGATION_TIMEOUT": 10,
+                "HTTPREQ_POLLING_INTERVAL": "30",
+                "HTTPREQ_PROPAGATION_TIMEOUT": "10",
                 "HTTPREQ_USERNAME": "bob",
             },
         )
