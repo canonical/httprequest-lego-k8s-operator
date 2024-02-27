@@ -36,7 +36,7 @@ class HTTPRequestLegoK8s(AcmeClient):
     @property
     def _httpreq_http_timeout(self) -> str:
         """Returns HTTP Request http timeout from config."""
-        return self.model.config.get("httpreq_http_timeout")
+        return str(self.model.config.get("httpreq_http_timeout"))
 
     @property
     def _httpreq_password(self) -> str:
@@ -46,12 +46,12 @@ class HTTPRequestLegoK8s(AcmeClient):
     @property
     def _httpreq_polling_interval(self) -> str:
         """Returns HTTP Request polling interval from config."""
-        return self.model.config.get("httpreq_polling_interval")
+        return str(self.model.config.get("httpreq_polling_interval"))
 
     @property
     def _httpreq_propagation_timeout(self) -> str:
         """Returns HTTP Request propagation timeout from config."""
-        return self.model.config.get("httpreq_propagation_timeout")
+        return str(self.model.config.get("httpreq_propagation_timeout"))
 
     @property
     def _httpreq_username(self) -> str:
