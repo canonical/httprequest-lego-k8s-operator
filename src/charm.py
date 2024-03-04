@@ -8,7 +8,8 @@ import logging
 from typing import Dict
 from urllib.parse import urlparse
 
-from charms.lego_base_k8s.v0.lego_client import AcmeClient  # type: ignore[import]
+from charms.lego_base_k8s.v0.lego_client import AcmeClient
+from ops.framework import EventBase
 from ops.main import main
 from ops.model import ActiveStatus, BlockedStatus
 
@@ -19,44 +20,44 @@ class HTTPRequestLegoK8s(AcmeClient):
     """Main class that is instantiated every time an event occurs."""
 
     def __init__(self, *args):
-        """Uses the lego_client library to manage events."""
+        """Use the lego_client library to manage events."""
         super().__init__(*args, plugin="httpreq")
         self.framework.observe(self.on.config_changed, self._on_config_changed)
 
     @property
     def _httpreq_endpoint(self) -> str:
-        """Returns HTTP Request endpoint from config."""
-        return self.model.config.get("httpreq_endpoint")
+        """Return HTTP Request endpoint from config."""
+        return self.model.config.get("httpreq_endpoint", "")
 
     @property
     def _httpreq_mode(self) -> str:
-        """Returns HTTP Request mode from config."""
-        return self.model.config.get("httpreq_mode")
+        """Return HTTP Request mode from config."""
+        return self.model.config.get("httpreq_mode", "")
 
     @property
     def _httpreq_http_timeout(self) -> str:
-        """Returns HTTP Request http timeout from config."""
+        """Return HTTP Request http timeout from config."""
         return str(self.model.config.get("httpreq_http_timeout"))
 
     @property
     def _httpreq_password(self) -> str:
-        """Returns HTTP Request password from config."""
-        return self.model.config.get("httpreq_password")
+        """Return HTTP Request password from config."""
+        return self.model.config.get("httpreq_password", "")
 
     @property
     def _httpreq_polling_interval(self) -> str:
-        """Returns HTTP Request polling interval from config."""
+        """Return HTTP Request polling interval from config."""
         return str(self.model.config.get("httpreq_polling_interval"))
 
     @property
     def _httpreq_propagation_timeout(self) -> str:
-        """Returns HTTP Request propagation timeout from config."""
+        """Return HTTP Request propagation timeout from config."""
         return str(self.model.config.get("httpreq_propagation_timeout"))
 
     @property
     def _httpreq_username(self) -> str:
-        """Returns HTTP Request username from config."""
-        return self.model.config.get("httpreq_username")
+        """Return HTTP Request username from config."""
+        return self.model.config.get("httpreq_username", "")
 
     @property
     def _plugin_config(self) -> Dict[str, str]:
@@ -78,8 +79,8 @@ class HTTPRequestLegoK8s(AcmeClient):
             additional_config["HTTPREQ_USERNAME"] = self._httpreq_username
         return additional_config
 
-    def _on_config_changed(self, _) -> None:
-        """Handles config-changed events."""
+    def _on_config_changed(self, event: EventBase) -> None:
+        """Handle config-changed events."""
         if not self._validate_httpreq_config():
             return
         if not self.validate_generic_acme_config():
@@ -87,7 +88,7 @@ class HTTPRequestLegoK8s(AcmeClient):
         self.unit.status = ActiveStatus()
 
     def _validate_httpreq_config(self) -> bool:
-        """Checks whether required config options are set.
+        """Check whether required config options are set.
 
         Returns:
             bool: True/False
