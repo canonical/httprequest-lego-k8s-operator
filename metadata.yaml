@@ -18,6 +18,10 @@ source: https://github.com/canonical/httprequest-lego-k8s-operator
 issues: https://github.com/canonical/httprequest-lego-k8s-operator/issues
 docs: https://discourse.charmhub.io/t/http-request-acme-operator-docs-index/12513
 
+requires:
+  logging:
+    interface: loki_push_api
+
 provides:
   certificates:
     interface: tls-certificates
