@@ -75,7 +75,7 @@ async def test_given_tls_requirer_is_deployed_and_related_then_status_is_active(
     build_and_deploy,
 ):
     assert ops_test.model
-    await ops_test.model.add_relation(
+    await ops_test.model.integrate(
         relation1=f"{APP_NAME}:certificates", relation2=f"{TLS_REQUIRER_CHARM_NAME}"
     )
     await ops_test.model.wait_for_idle(
