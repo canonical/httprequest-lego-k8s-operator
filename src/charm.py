@@ -9,9 +9,7 @@ from typing import Dict
 from urllib.parse import urlparse
 
 from charms.lego_base_k8s.v0.lego_client import AcmeClient
-from ops.framework import EventBase
 from ops.main import main
-from ops.model import ActiveStatus, BlockedStatus
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +20,6 @@ class HTTPRequestLegoK8s(AcmeClient):
     def __init__(self, *args):
         """Use the lego_client library to manage events."""
         super().__init__(*args, plugin="httpreq")
-        self.framework.observe(self.on.config_changed, self._on_config_changed)
 
     @property
     def _httpreq_endpoint(self) -> str:
@@ -79,34 +76,21 @@ class HTTPRequestLegoK8s(AcmeClient):
             additional_config["HTTPREQ_USERNAME"] = self._httpreq_username
         return additional_config
 
-    def _on_config_changed(self, event: EventBase) -> None:
-        """Handle config-changed events."""
-        if not self._validate_httpreq_config():
-            return
-        if not self.validate_generic_acme_config():
-            return
-        self.unit.status = ActiveStatus()
-
-    def _validate_httpreq_config(self) -> bool:
+    def _validate_plugin_config(self) -> str:
         """Check whether required config options are set.
 
         Returns:
-            bool: True/False
+            str: Error message if required options are not set or invalid.
         """
         try:
             url = urlparse(self._httpreq_endpoint)
             if url.scheme not in ["http", "https"]:
-                self.unit.status = BlockedStatus(
-                    "HTTPREQ_ENDPOINT must be a valid HTTP or HTTPS URL."
-                )
-                return False
+                return "HTTPREQ_ENDPOINT must be a valid HTTP or HTTPS URL."
         except ValueError:
-            self.unit.status = BlockedStatus("HTTPREQ_ENDPOINT must be a valid HTTP or HTTPS URL.")
-            return False
+            return "HTTPREQ_ENDPOINT must be a valid HTTP or HTTPS URL."
         if self._httpreq_mode and self._httpreq_mode != "RAW":
-            self.unit.status = BlockedStatus("HTTPREQ_MODE must be RAW or not provided.")
-            return False
-        return True
+            return "HTTPREQ_MODE must be RAW or not provided."
+        return ""
 
 
 if __name__ == "__main__":  # pragma: nocover
