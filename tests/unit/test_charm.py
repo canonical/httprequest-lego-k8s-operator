@@ -14,6 +14,7 @@ from parameterized import parameterized
 class TestCharm(unittest.TestCase):
     def setUp(self):
         self.harness = Harness(HTTPRequestLegoK8s)
+        self.harness.set_can_connect("lego", True)
         self.addCleanup(self.harness.cleanup)
         self.harness.begin()
 
@@ -24,6 +25,7 @@ class TestCharm(unittest.TestCase):
                 "httpreq_endpoint": "http://dummy.url.com",
             }
         )
+        self.harness.evaluate_status()
         self.assertEqual(self.harness.model.unit.status, ActiveStatus())
 
     def test_given_email_is_invalid_when_config_changed_then_status_is_blocked(self):
@@ -33,6 +35,7 @@ class TestCharm(unittest.TestCase):
                 "httpreq_endpoint": "http://dummy.url.com",
             }
         )
+        self.harness.evaluate_status()
         self.assertEqual(self.harness.model.unit.status, BlockedStatus("Invalid email address"))
 
     @parameterized.expand(
@@ -62,6 +65,7 @@ class TestCharm(unittest.TestCase):
     )
     def test_given_bad_urls_when_config_changed_then_status_is_blocked(self, option, config):
         self.harness.update_config(config)
+        self.harness.evaluate_status()
         self.assertEqual(
             self.harness.model.unit.status,
             BlockedStatus("HTTPREQ_ENDPOINT must be a valid HTTP or HTTPS URL."),
@@ -80,6 +84,7 @@ class TestCharm(unittest.TestCase):
                 "httpreq_username": "bob",
             }
         )
+        self.harness.evaluate_status()
         self.assertEqual(self.harness.model.unit.status, ActiveStatus())
 
     def test_optional_config_provided_then_plugin_config_is_correct(self):
@@ -95,6 +100,7 @@ class TestCharm(unittest.TestCase):
                 "httpreq_username": "bob",
             }
         )
+        self.harness.evaluate_status()
         self.assertEqual(
             self.harness.charm._plugin_config,
             {
@@ -116,6 +122,7 @@ class TestCharm(unittest.TestCase):
                 "httpreq_mode": "MAGIC",
             }
         )
+        self.harness.evaluate_status()
         self.assertEqual(
             self.harness.model.unit.status,
             BlockedStatus("HTTPREQ_MODE must be RAW or not provided."),
