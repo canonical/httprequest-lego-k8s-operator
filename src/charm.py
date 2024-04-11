@@ -5,7 +5,7 @@
 """Retrieves certificates from an ACME server using the HTTP Request dns provider."""
 
 import logging
-from typing import Dict
+from typing import Dict, cast
 from urllib.parse import urlparse
 
 from charms.lego_base_k8s.v0.lego_client import AcmeClient
@@ -24,12 +24,12 @@ class HTTPRequestLegoK8s(AcmeClient):
     @property
     def _httpreq_endpoint(self) -> str:
         """Return HTTP Request endpoint from config."""
-        return self.model.config.get("httpreq_endpoint", "")
+        return cast(str, self.model.config.get("httpreq_endpoint", ""))
 
     @property
     def _httpreq_mode(self) -> str:
         """Return HTTP Request mode from config."""
-        return self.model.config.get("httpreq_mode", "")
+        return cast(str, self.model.config.get("httpreq_mode", ""))
 
     @property
     def _httpreq_http_timeout(self) -> str:
@@ -39,7 +39,7 @@ class HTTPRequestLegoK8s(AcmeClient):
     @property
     def _httpreq_password(self) -> str:
         """Return HTTP Request password from config."""
-        return self.model.config.get("httpreq_password", "")
+        return cast(str, self.model.config.get("httpreq_password", ""))
 
     @property
     def _httpreq_polling_interval(self) -> str:
@@ -54,7 +54,7 @@ class HTTPRequestLegoK8s(AcmeClient):
     @property
     def _httpreq_username(self) -> str:
         """Return HTTP Request username from config."""
-        return self.model.config.get("httpreq_username", "")
+        return cast(str, self.model.config.get("httpreq_username", ""))
 
     @property
     def _plugin_config(self) -> Dict[str, str]:
