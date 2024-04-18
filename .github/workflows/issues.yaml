@@ -13,7 +13,7 @@ jobs:
         env:
            ISSUE_TITLE: ${{ github.event.issue.title }}
            ISSUE_DESCRIPTION: ${{ github.event.issue.body }}
-        run: |
+        run: |              
           if ${{ contains(github.event.*.labels.*.name, 'Bug') }}; then
             type=bug
           else
@@ -27,5 +27,5 @@ jobs:
                   --arg type "$type" \
                   --arg action '${{ github.event.action }}' \
                   '{title: $title, url: $url, submitter: $submitter, body: $body, type: $type, action: $action}' )
-
+ 
           curl -X POST -H 'Content-type: application/json' --data "${data}" "${{ secrets.JIRA_URL }}"
