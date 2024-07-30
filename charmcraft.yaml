@@ -27,6 +27,8 @@ requires:
 provides:
   certificates:
     interface: tls-certificates
+  send-ca-cert:
+    interface: certificate_transfer
 
 containers:
   lego:
