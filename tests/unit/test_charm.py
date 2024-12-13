@@ -67,7 +67,9 @@ class TestCharm(unittest.TestCase):
             ),
         ]
     )
-    def test_given_bad_urls_when_config_changed_then_status_is_blocked(self, option, config):
+    def test_given_bad_urls_when_config_changed_then_status_is_blocked(
+        self, option: str, config: dict[str, str]
+    ):
         self.harness.update_config(config)
         self.harness.evaluate_status()
         self.assertEqual(
