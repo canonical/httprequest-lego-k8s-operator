@@ -1,3 +1,32 @@
+[project]
+name = "httpreq-lego-k8s-operator"
+version = "0.1.0"
+requires-python = ">=3.10"
+
+dependencies = [
+    "cosl",
+    "cryptography",
+    "jsonschema",
+    "ops",
+    "pydantic==2.9.2",
+]
+
+[dependency-groups]
+test = [
+    "coverage[toml]",
+    "juju",
+    "parameterized",
+    "pytest",
+    "pytest-operator",
+    "pytest-asyncio==0.21.2",
+    "ops[testing]",
+]
+dev = [
+    "codespell",
+    "pyright",
+    "ruff",
+]
+
 # Testing tools configuration
 [tool.coverage.run]
 branch = true
