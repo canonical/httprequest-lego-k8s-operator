@@ -8,7 +8,7 @@ dependencies = [
     "cryptography",
     "jsonschema",
     "ops",
-    "pydantic==2.9.2",
+    "pydantic==2.10.3",
 ]
 
 [dependency-groups]
