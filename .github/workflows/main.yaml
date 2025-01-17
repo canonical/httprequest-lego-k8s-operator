@@ -13,39 +13,43 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint-report:
-    uses: canonical/identity-credentials-workflows/.github/workflows/lint-report.yaml@main
+  test:
+    uses: ./.github/workflows/my-test.yaml
+    # with:
+    #   track-name: 1.16
+  # lint-report:
+  #   uses: canonical/identity-credentials-workflows/.github/workflows/lint-report.yaml@main
 
-  static-analysis:
-    name: Static analysis
-    uses: canonical/identity-credentials-workflows/.github/workflows/static-analysis.yaml@main
+  # static-analysis:
+  #   name: Static analysis
+  #   uses: canonical/identity-credentials-workflows/.github/workflows/static-analysis.yaml@main
 
-  unit-tests-with-coverage:
-    uses: canonical/identity-credentials-workflows/.github/workflows/unit-test.yaml@main
+  # unit-tests-with-coverage:
+  #   uses: canonical/identity-credentials-workflows/.github/workflows/unit-test.yaml@main
 
-  build:
-    needs:
-      - lint-report
-      - static-analysis
-      - unit-tests-with-coverage
-    uses: ./.github/workflows/build.yaml
-    secrets: inherit
+  # build:
+  #   needs:
+  #     - lint-report
+  #     - static-analysis
+  #     - unit-tests-with-coverage
+  #   uses: ./.github/workflows/build.yaml
+  #   secrets: inherit
 
-  integration-test:
-    needs:
-      - build
-    uses: ./.github/workflows/integration-test.yaml
+  # integration-test:
+  #   needs:
+  #     - build
+  #   uses: ./.github/workflows/integration-test.yaml
 
-  publish-charm:
-    name: Publish charm
-    needs:
-      - lint-report
-      - static-analysis
-      - unit-tests-with-coverage
-      - integration-test
-    if: ${{ github.ref_name == 'main' }}
-    uses: canonical/identity-credentials-workflows/.github/workflows/publish-charm.yaml@main
-    secrets:
-      CHARMCRAFT_AUTH: ${{ secrets.CHARMCRAFT_AUTH }}
-    with:
-      track-name: 1.16
+  # publish-charm:
+  #   name: Publish charm
+  #   needs:
+  #     - lint-report
+  #     - static-analysis
+  #     - unit-tests-with-coverage
+  #     - integration-test
+  #   if: ${{ github.ref_name == 'main' }}
+  #   uses: canonical/identity-credentials-workflows/.github/workflows/publish-charm.yaml@main
+  #   secrets:
+  #     CHARMCRAFT_AUTH: ${{ secrets.CHARMCRAFT_AUTH }}
+  #   with:
+  #     track-name: 1.16

@@ -1,0 +1,31 @@
+# Copyright 2024 Canonical Ltd.
+# See LICENSE file for licensing details.
+
+name: my-test
+
+on:
+  workflow_call:
+    inputs:
+      track-name:
+        default: latest
+        description: Name of the charmhub track to publish the charm to
+        type: string
+      branch-name:
+        default:
+        description: An additional branch name to add to the track
+        type: string
+
+jobs:
+  my-test:
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Select Charmhub channel
+        uses: canonical/charming-actions/channel@2.6.3
+        id: channel
+        if: ${{inputs.track-name}} == ""
+
+      - name: Upload charm to Charmhub
+        run: |
+          echo "${{ inputs.track-name || steps.channel.outputs.name }}"
