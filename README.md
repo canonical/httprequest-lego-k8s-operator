@@ -1,4 +1,9 @@
+## Deprecation Notice
+
+**This charm is no longer supported, please consider using [lego-operator](https://github.com/canonical/lego-operator) or [notary-k8s-operator](https://github.com/canonical/notary-k8s-operator) instead.**
+
 # httpreq LEGO Operator (K8s)
+
 [![CharmHub Badge](https://charmhub.io/httprequest-lego-k8s/badge.svg)](https://charmhub.io/httprequest-lego-k8s)
 
 LEGO operator implementing the provider side of the `tls-certificates`
@@ -9,4 +14,4 @@ For more information including guides, integrations, configuration options, see 
 
 ## OCI Images
 
--  [Lego Rock Image](https://github.com/canonical/lego-rock)
+- [Lego Rock Image](https://github.com/canonical/lego-rock)
