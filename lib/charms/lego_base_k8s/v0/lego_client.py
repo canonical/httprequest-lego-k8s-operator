@@ -3,6 +3,8 @@
 
 """# lego_client Library.
 
+Deprecation Notice: This library is deprecated. Please use the lego charm instead: https://charmhub.io/lego.
+
 This library is designed to enable developers to easily create new charms for the ACME protocol.
 This library contains all the logic necessary to get certificates from an ACME server.
 
@@ -77,7 +79,7 @@ import logging
 import os
 import re
 from abc import abstractmethod
-from typing import Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set
 from urllib.parse import urlparse
 
 from charms.certificate_transfer_interface.v1.certificate_transfer import (
@@ -103,7 +105,7 @@ LIBAPI = 0
 
 # Increment this PATCH version before using `charmcraft publish-lib` or reset
 # to 0 if you are raising the major API version
-LIBPATCH = 16
+LIBPATCH = 17
 
 
 logger = logging.getLogger(__name__)
@@ -120,8 +122,9 @@ class AcmeClient(CharmBase):
 
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, *args, plugin: str):
+    def __init__(self, *args: Any, plugin: str):
         super().__init__(*args)
+        logger.warning("This library is deprecated. Please use the lego charm instead.")
         self._csr_path = "/tmp/csr.pem"
         self._certs_path = "/tmp/.lego/certificates/"
         self._container_name = list(self.meta.containers.values())[0].name
@@ -225,7 +228,7 @@ class AcmeClient(CharmBase):
         )
         try:
             stdout, error = process.wait_output()
-            logger.info(f"Return message: {stdout}, {error}")
+            logger.info("Return message: %s, %s", stdout, error)
         except ExecError as e:
             logger.error("Exited with code %d. Stderr:", e.exit_code)
             for line in e.stderr.splitlines():  # type: ignore
