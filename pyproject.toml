@@ -1,14 +1,14 @@
 [project]
 name = "httpreq-lego-k8s-operator"
 version = "0.1.0"
-requires-python = ">=3.10"
+requires-python = ">=3.13.3"
 
 dependencies = [
     "cosl",
     "cryptography",
     "jsonschema",
     "ops",
-    "pydantic==2.11.1",
+    "pydantic==2.11.5",
 ]
 
 [dependency-groups]
